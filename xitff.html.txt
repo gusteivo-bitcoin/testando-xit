@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(ConfigApp());
+}
+
+class ConfigApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Configurações FF',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      home: ConfigPage(),
+    );
+  }
+}
+
+class ConfigPage extends StatefulWidget {
+  @override
+  _ConfigPageState createState() => _ConfigPageState();
+}
+
+class _ConfigPageState extends State<ConfigPage> {
+  double sensibilidade = 50;
+  double dpi = 300;
+  double brilho = 50;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Configurações Free Fire")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text("Sensibilidade: ${sensibilidade.toInt()}"),
+            Slider(
+              value: sensibilidade,
+              min: 0,
+              max: 100,
+              divisions: 100,
+              onChanged: (value) {
+                setState(() => sensibilidade = value);
+              },
+            ),
+            Text("DPI: ${dpi.toInt()}"),
+            Slider(
+              value: dpi,
+              min: 100,
+              max: 600,
+              divisions: 500,
+              onChanged: (value) {
+                setState(() => dpi = value);
+              },
+            ),
+            Text("Brilho: ${brilho.toInt()}"),
+            Slider(
+              value: brilho,
+              min: 0,
+              max: 100,
+              divisions: 100,
+              onChanged: (value) {
+                setState(() => brilho = value);
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Aqui você poderia salvar as configs em um banco local
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text("Configurações salvas!")),
+                );
+              },
+              child: Text("Salvar Configurações"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
